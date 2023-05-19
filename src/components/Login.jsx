@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap'
 
 export  function Login() {
 
+       /*
  const [usernameData,setUsernameData] =   useState("test")
 
  let [ageData,setAgeData] =   useState(10)
@@ -19,23 +20,77 @@ export  function Login() {
 
     let getAgeValue = (e) =>{
         setAgeData(e.target.value)
+    }*/
+    let [formValues,setFormValues] = useState({
+        username:'inital username',
+        age:10
+    })
+
+    let [errors,setErrors] =  useState({
+        username:null,
+        age:null
+    })
+ 
+
+    let loginFun = (e)=>{
+        e.preventDefault();
+        console.log("Login")
+        console.log(formValues)
+      
+    }
+    let operationHandler = (e)=>{
+
+        if(e.target.name == 'username'){
+            if(e.target.value.length >=3){
+                setFormValues({
+                    ...formValues,
+                    [e.target.name]:e.target.value
+                }) 
+                setErrors({
+                    ...errors,
+                    username:null
+                })
+               
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    username:"username Length must br > 3"
+                })
+            }
+        }
+
+
+        /*
+      if(e.target.name == 'username'){
+        setFormValues({
+            ...formValues,
+            username:e.target.value
+        })
+      }
+      if(e.target.name == 'age'){
+        setFormValues({
+            ...formValues,
+            age:e.target.value
+        })
+      }*/
     }
   return (
     <div className='container mt-5'>
       <Form onSubmit={loginFun}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Username</Form.Label>
-        <Form.Control onChange={getUsernameValue} type="text" name="username" placeholder="Enter username" />
-        <Form.Text className="text-muted">
-         {usernameData}
+        <Form.Control onChange={operationHandler} type="text" name="username" placeholder="Enter username" />
+        <Form.Text className="text-danger">
+         {errors.username}
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Age</Form.Label>
-        <Form.Control onChange={getAgeValue} type="number" placeholder="Enter Your Age" />
-        <Form.Text className="text-muted">
-         {ageData}
+        <Form.Control name="age" onChange={operationHandler} type="number" placeholder="Enter Your Age" />
+        <Form.Text className="text-danger">
+        {errors.age}
         </Form.Text>
       </Form.Group>
       <Button variant="dark" type="submit">
@@ -45,4 +100,6 @@ export  function Login() {
     </div>
   )
 }
+
+
 
