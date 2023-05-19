@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-export  function Login() {
+export function Login() {
+ let navigate = useNavigate();
+
 
        /*
  const [usernameData,setUsernameData] =   useState("test")
@@ -35,9 +38,11 @@ export  function Login() {
     let loginFun = (e)=>{
         e.preventDefault();
         console.log("Login")
-        console.log(formValues)
-      
-    }
+      console.log( formValues )
+      navigate('/products')
+  }
+  
+  /** Nested Routing */
     let operationHandler = (e)=>{
 
         if(e.target.name == 'username'){
@@ -95,7 +100,8 @@ export  function Login() {
       </Form.Group>
       <Button variant="dark" type="submit">
         Login
-      </Button>
+        </Button>
+
     </Form>
     </div>
   )
